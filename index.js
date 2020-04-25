@@ -81,6 +81,9 @@ const saveBooks = (choices) => {
             }]).then(answers => {
                 console.info('Saved', answers.chooseBook, 'to Reading List!')
                 readingList.push(answers.chooseBook)
+                if(readingList.length > 0 ) {
+                    init();
+                }
             })
         } else {
             console.info('Okay! No worries!')
@@ -91,7 +94,7 @@ const saveBooks = (choices) => {
 
 const viewBooks = () => {
     if(readingList.length > 0 ) {
-        return readingList;
+        console.info(readingList);
     } else {
         console.info('You need to add books to your reading list!')
         searchBooks();
@@ -99,7 +102,9 @@ const viewBooks = () => {
 }
 
 const init = () => {
+    console.info('=============================')
     console.info('Welcome to the Book Searcher!')
+    console.info('=============================')
     promptUser().then(answers => {
         if(answers.chooseFunction === 'Search books') {
             searchBooks();
