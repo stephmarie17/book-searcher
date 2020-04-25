@@ -95,6 +95,8 @@ const saveBooks = (choices) => {
 const viewBooks = () => {
     if(readingList.length > 0 ) {
         console.info(readingList);
+        console.info('You should add more books!!!')
+        searchBooks();
     } else {
         console.info('You need to add books to your reading list!')
         searchBooks();
