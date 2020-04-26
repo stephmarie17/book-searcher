@@ -1,10 +1,11 @@
 // Dependencies
+require('dotenv').config()
 const axios = require('axios');
 const { prompt } = require('inquirer');
 const Book = require('./lib/Book');
 
 // API Call
-const key = 'AIzaSyCUKerwjegonDY-f5FProCNb3mV42AOQA8'
+const key = process.env.API_KEY
 const templateURL = 'https://www.googleapis.com/books/v1/'
 
 const promptUser = () => {
@@ -13,7 +14,7 @@ const promptUser = () => {
             type: 'list',
             name: 'chooseFunction',
             message: 'What would you like to do?',
-            choices: ['Search books', 'View my Reading List', 'Exit']
+            choices: ['Search books by title', 'Search books by author', 'View my Reading List', 'Exit']
         }
     ])
 }
@@ -29,6 +30,18 @@ const findBook = (title) => {
         console.log(err)
     })
 };
+
+// Find books by author
+const findAuthor = (author) => {
+    axios.get(`${templateURL}volumes?q=${author}&maxResults=5&orderBy=relevance&key=${key}`)
+    .then((response) => {
+        let data = response.data.items
+        listBooks(data);
+    })
+    .catch((err) => {
+        console.log(err)
+    })
+}
 
 // List book results
 const listBooks = (books) => {
@@ -50,6 +63,14 @@ const titleSearch = [
     }
 ];
 
+const authorSearch = [
+    {
+        type: 'input',
+        name: 'author',
+        message: 'Search by Author'
+    }
+];
+
 const toSave = [
     {
         type: 'confirm',
@@ -58,12 +79,20 @@ const toSave = [
     }
 ];
 
+// Book Searching Logic
 const searchBooks = () => {
     prompt(titleSearch).then(answers => {
         findBook(answers.title)
     })
 };
 
+const searchAuthors = () => {
+    prompt(authorSearch).then(answers => {
+        findAuthor(answers.author)
+    })
+};
+
+// Book Saving Logic
 let readingList = [];
 
 const saveBooks = (choices) => {
@@ -100,6 +129,7 @@ const saveBooks = (choices) => {
     })
 };
 
+// Book Viewing Logic
 const viewBooks = () => {
     if(readingList.length > 0 ) {
         console.info(readingList);
@@ -111,13 +141,16 @@ const viewBooks = () => {
     }  
 }
 
+// Initializes when user runs 'node index.js'
 const init = () => {
     console.info('=============================')
     console.info('Welcome to the Book Searcher!')
     console.info('=============================')
     promptUser().then(answers => {
-        if(answers.chooseFunction === 'Search books') {
+        if(answers.chooseFunction === 'Search books by title') {
             searchBooks();
+        } else if (answers.chooseFunction === 'Search books by author') {
+            searchAuthors();
         } else if(answers.chooseFunction === 'View my Reading List') {
             viewBooks();
         } else {
