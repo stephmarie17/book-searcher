@@ -33,7 +33,7 @@ const findBook = (title) => {
 
 // Find books by author
 const findAuthor = (author) => {
-    axios.get(`${templateURL}volumes?q=${author}&maxResults=5&orderBy=relevance&key=${key}`)
+    axios.get(`${templateURL}volumes?q=${author}+inauthor:${author}&maxResults=5&orderBy=relevance&key=${key}`)
     .then((response) => {
         let data = response.data.items
         listBooks(data);
