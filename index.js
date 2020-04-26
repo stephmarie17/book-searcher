@@ -69,7 +69,15 @@ let readingList = [];
 const saveBooks = (choices) => {
     let bookChoices = [];
     for (let i = 0; i < choices.length; i++) {
-        bookChoices.push(choices[i].title)
+        let bookObject = {
+            name: choices[i].title + " by " + choices[i].author,
+            value: {
+                title: choices[i].title,
+                author: choices[i].author,
+                publisher: choices[i].publisher
+            }
+        }
+        bookChoices.push(bookObject)
     }
     prompt(toSave).then(answers => {
         if(answers.confirmSave === true) {
