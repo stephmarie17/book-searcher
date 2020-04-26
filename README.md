@@ -7,6 +7,8 @@ This application was built in NodeJS. It enables users to search for books with 
 ## Installation
 To run locally, clone to your machine and run npm install to install dependencies. After installation, you can run the applicaiton in the command line by entering `node index.js`. 
 
+You will also need a Google API key to run the applicaiton. To learn how to acquire a key, you can visit the [Google Books API docs](https://cloud.google.com/docs/authentication/api-keys?visit_id=637235392987124539-3850891900&rd=1). You do not need to get OAuth credentials.
+
 ## Usage
 Upon starting, the user will view a list of prompts to search by book title, search by author, view their reading list, or exit. To search, select either of the top two options and receive the top five results from the API. 
 
