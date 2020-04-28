@@ -23,5 +23,8 @@ Users can also view a list of books saved during the session. The Reading List d
 - Dotenv
 - Axios
 
+## Future Developments
+The structure of this applicaiton would work well with creating a MongoDB database so that books in the reading list would be saved beyond a single session. 
+
 ## Contributor
 Stephanie Aurelio
