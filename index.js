@@ -21,7 +21,8 @@ const promptUser = () => {
 
 // Find a book by title
 const findBook = (title) => {
-    axios.get(`${templateURL}volumes?q=${title}&maxResults=5&orderBy=relevance&key=${key}`)
+    // axios.get(`${templateURL}volumes?q=${title}&maxResults=5&orderBy=relevance&key=${key}`)
+    axios.get(`${templateURL}volumes?q=${title}&maxResults=5&orderBy=relevance`)
     .then((response) => {
         let data = response.data.items
         listBooks(data);
@@ -33,7 +34,8 @@ const findBook = (title) => {
 
 // Find books by author
 const findAuthor = (author) => {
-    axios.get(`${templateURL}volumes?q=${author}+inauthor:${author}&maxResults=5&orderBy=relevance&key=${key}`)
+    // axios.get(`${templateURL}volumes?q=${author}+inauthor:${author}&maxResults=5&orderBy=relevance&key=${key}`)
+    axios.get(`${templateURL}volumes?q=${author}+inauthor:${author}&maxResults=5&orderBy=relevance`)
     .then((response) => {
         let data = response.data.items
         listBooks(data);
